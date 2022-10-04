@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="jsonEditorApp">
+  <head>
+    <meta charset="UTF-8" />
+    <title>VetMate Reference Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <style>
+      .spinner  {
+        height: 100vh;
+        width:100%;
+        position: fixed;
+        z-index: 1000;
+        top: auto;
+        background: aliceblue;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="loadingSpinner" class="d-none overlay d-flex justify-content-center align-items-center spinner">
+      <div class="spinner-grow text-primary" role="status"></div>
+      <div class="spinner-grow text-secondary" role="status"></div>
+      <div class="spinner-grow text-success" role="status"></div>
+      <div class="spinner-grow text-danger" role="status"></div>
+      <div class="spinner-grow text-warning" role="status"></div>
+      <div class="spinner-grow text-info" role="status"></div>
+      <div class="spinner-grow text-light" role="status"></div>
+    </div>
+
+    <div class="container-fluid">
+      <nav class="navbar bg-light">
+          <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                  <img src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo-shadow.png" height="40" width="50"></img>
+              </a>
+              <h1>VetMate Reference Data</h1>
+          </div>
+      </nav>
+
+      <div ng-controller="JsonViewController">
+
+        <div ng-repeat="animal in jsonData track by $index" ng-init="animalIndex = $index" class="card m-2">
+          
+          <div class="card-body">
+
+            <div class="card-title fs-4">
+              <div class="row">
+                <div class="col">
+                  <input type="text" class="form-control" ng-model="animal.name">
+                </div>
+                <div class="col-md-1">
+                  <button class="btn btn-danger form-control" ng-click="deleteAnimal(animalIndex)">
+                    <i class="bi bi-x-circle-fill"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- {{animal.name}}
+              <span class="btn btn-secondary"><i class="bi bi-pencil-fill"></i></span> -->
+            </div>
+            
+            <hr/>
+
+            <div class="card-text">
+
+              <div ng-repeat="category in animal.categories track by $index" ng-init="categoryIndex = $index">
+              
+                <div class="form-group">
+                  <div class="fs-5 fw-bold col-md-4">{{category.name}}</div>
+                </div>
+  
+                <div ng-repeat="parameter in category.parameters track by $index" ng-init="parameterIndex = $index" class="row mb-2">
+                
+                  <div class="col">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" ng-model="parameter.name">
+                  </div>
+                  <div class="col">
+                    <label class="form-label">Value</label>
+                    <input type="text" class="form-control" ng-model="parameter.value">
+                  </div>
+                  <div class="col-md-1">
+                    <label class="form-label">&nbsp;</label>
+                    <button class="btn btn-warning form-control" ng-click="deleteParameter(animalIndex, categoryIndex, parameterIndex)">
+                      <i class="bi bi-trash-fill"></i>
+                    </button>
+                  </div>
+                </div> 
+                <!-- paramter -->
+                
+                <div class="form-group">
+                  <button class="btn btn-secondary btn-lg" ng-click="addNewParameter(animalIndex, categoryIndex)">Add parameter</button>
+                </div>
+              </div>
+              <!-- category -->
+            </div>
+          </div>
+        </div>
+        <!-- animal -->
+        <div class="form-group">
+          <button class="btn btn-success btn-lg" ng-click="addNewAnimal()">Add animal</button>
+          <button class="btn btn-primary btn-lg" ng-click="save()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.js" integrity="sha512-klc+qN5PPscoGxSzFpetVsCr9sryi2e2vHwZKq43FdFyhSAa7vAqog/Ifl8tzg/8mBZiG2MAKhyjH5oPJp65EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="index.js"/>
+  </body>
+</html>
