@@ -80,7 +80,17 @@ app.controller('JsonViewController', function ($scope, $http) {
     $scope.deleteAnimal = function(animalIndex) {
         console.log('Remove animal', animalIndex);
         $scope.jsonData.splice(animalIndex, 1);
-    }
+    };
+
+    $scope.addNewCategory = function(animalIndex) {
+        console.log('Add', animalIndex);
+        $scope.jsonData[animalIndex].categories.push({name: '', parameters: []});
+    };
+
+    $scope.deleteCategory = function(animalIndex, categoryIndex) {
+        console.log('Remove', animalIndex, categoryIndex);
+        $scope.jsonData[animalIndex].categories.splice(categoryIndex, 1);
+    };
 
     $scope.save = function() {
         console.log('Saving', $scope.jsonData);

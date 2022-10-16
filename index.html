@@ -47,6 +47,9 @@
 
             <div class="card-title fs-4">
               <div class="row">
+                <div class="col-md-1">
+                  Animal
+                </div>
                 <div class="col">
                   <input type="text" class="form-control" ng-model="animal.name">
                 </div>
@@ -56,32 +59,41 @@
                   </button>
                 </div>
               </div>
-              <!-- {{animal.name}}
-              <span class="btn btn-secondary"><i class="bi bi-pencil-fill"></i></span> -->
             </div>
             
             <hr/>
 
             <div class="card-text">
 
-              <div ng-repeat="category in animal.categories track by $index" ng-init="categoryIndex = $index">
+              <h4>Parameter categories</h4>
+
+              <div ng-repeat="category in animal.categories track by $index" ng-init="categoryIndex = $index" class="card p-2 m-2" style="background-color: azure">
               
-                <div class="form-group">
-                  <div class="fs-5 fw-bold col-md-4">{{category.name}}</div>
+                <div class="row">
+                  <div class="col-md-1 fw-bold">
+                    <h5>Name</h5>
+                  </div>
+                  <div class="col">
+                    <input type="text" class="form-control" ng-model="category.name">
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-danger form-control" ng-click="deleteCategory(animalIndex, categoryIndex)">
+                      <i class="bi bi-x-circle-fill"></i>
+                    </button>
+                  </div>
                 </div>
+
+                <h5 class="mt-2">Values</h5>
   
                 <div ng-repeat="parameter in category.parameters track by $index" ng-init="parameterIndex = $index" class="row mb-2">
                 
                   <div class="col">
-                    <label class="form-label">Name</label>
                     <input type="text" class="form-control" ng-model="parameter.name">
                   </div>
                   <div class="col">
-                    <label class="form-label">Value</label>
                     <input type="text" class="form-control" ng-model="parameter.value">
                   </div>
                   <div class="col-md-1">
-                    <label class="form-label">&nbsp;</label>
                     <button class="btn btn-warning form-control" ng-click="deleteParameter(animalIndex, categoryIndex, parameterIndex)">
                       <i class="bi bi-trash-fill"></i>
                     </button>
@@ -90,8 +102,12 @@
                 <!-- paramter -->
                 
                 <div class="form-group">
-                  <button class="btn btn-secondary btn-lg" ng-click="addNewParameter(animalIndex, categoryIndex)">Add parameter</button>
+                  <button class="btn btn-info btn-lg" ng-click="addNewParameter(animalIndex, categoryIndex)">Add row</button>
                 </div>
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-success btn-lg" ng-click="addNewCategory(animalIndex)">Add category</button>
               </div>
               <!-- category -->
             </div>
